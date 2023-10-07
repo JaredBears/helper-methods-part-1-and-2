@@ -20,13 +20,11 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = Movie.find(params.fetch(:id))
+    @movie = Movie.find(params[:id])
   end
 
   def create
-    @movie = Movie.new
-    @movie.title = params.fetch(:title)
-    @movie.description = params.fetch(:description)
+    @movie = Movie.new(params.require(:movie).permit(:title, :description))
 
     if @movie.valid?
       @movie.save
@@ -37,14 +35,14 @@ class MoviesController < ApplicationController
   end
 
   def edit
-    @movie  = Movie.find(params.fetch(:id))
+    @movie  = Movie.find(params[:id])
   end
 
   def update
-    movie = Movie.find(params.fetch(:id))
+    movie = Movie.find(params[:id])
 
-    movie.title = params.fetch(:title)
-    movie.description = params.fetch(:description)
+    movie.title = params[:movie][:title]
+    movie.description = params[:movie][:description]
 
     if movie.valid?
       movie.save
@@ -55,7 +53,7 @@ class MoviesController < ApplicationController
   end
 
   def destroy
-    movie = Movie.find(params.fetch(:id))
+    movie = Movie.find(params[:id])
 
     movie.destroy
 
