@@ -4,18 +4,18 @@
   <p style="color: red;"><%= message %></p>
 <% end %>
 
-<%= form_with(url: movie_path(@movie), method: :patch, data: { turbo: false }) do %>
+<%= form_with(model: @movie, method: :patch, data: { turbo: false }) do |form| %>
   <div>
-    <%= label_tag :title, "Title" %>
+    <%= form.label :title %>
 
-    <%= text_field_tag "movie[title]", @movie.title, {id: "title" } %>
+    <%= form.text_field :title %>
   </div>
 
   <div>
-    <%= label_tag :description, "Description" %>
+    <%= form.label :description %>
 
-    <%= text_area_tag "movie[description]", @movie.description, {id: "description", rows: 3 } %>
+    <%= form.text_area :description, { rows: 3 } %>
   </div>
 
-  <%= button_tag "Update Movie" %>
+  <%= form.button %>
 <% end %>
